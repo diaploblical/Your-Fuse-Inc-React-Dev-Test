@@ -5,34 +5,48 @@ import {CardContent} from '@material-ui/core'
 import {Typography} from '@material-ui/core'
 import {Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/'
-import test from '../test.jpg'
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
-    minHeight: 300
+    maxWidth: 300,
+    minHeight: 550
   },
   media: {
-    height: 140,
+    height: 250,
+    width: 250
   },
 })
 
 export const CryptoCard = ({coin}) => {
   const classes = useStyles()
   return(
-    <Grid item xs={12} md={6}>
+    <Grid item xs={12} md={6} lg={3}>
       <Card className={classes.root}>
+        <CardContent>
+          <Typography gutterBottom variant='h5' component='p'>
+            {coin.name}
+          </Typography>
+        </CardContent>
         <CardMedia
           className={classes.media}
-          image={test}
-          title='Test Image'
+          image={coin.image}
+          title={coin.symbol}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {coin.title}
+          <Typography variant='h6' component='p'>
+            All prices are in USD
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {coin.id}
+          <Typography variant='h6' color='textSecondary' component='p'>
+            Price: ${coin.current_price}
+          </Typography>
+          <Typography variant='h6' color='textSecondary' component='p'>
+            Total volume: {coin.total_volume}
+          </Typography>
+          <Typography variant='h6' color='textSecondary' component='p'>
+            24 hour high: ${coin.high_24h}
+          </Typography>
+          <Typography variant='h6' color='textSecondary' component='p'>
+            24 hour low: ${coin.low_24h}
           </Typography>
         </CardContent>
       </Card>

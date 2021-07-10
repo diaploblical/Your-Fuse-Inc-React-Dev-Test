@@ -1,11 +1,14 @@
 import {GET_COINS} from '../actions/actions'
 import {GET_COINS_SUCCESS} from '../actions/actions'
 import {GET_COINS_FAILURE} from '../actions/actions'
+import {PAGE_SELECT} from '../actions/actions'
 
 export const initialState = {
   coins: [],
   loading: false,
-  hasErrors: false
+  hasErrors: false,
+  currentPage: 1,
+  coinsPerPage: 4
 }
 
 export default function reducer(state = initialState, action) {
@@ -16,11 +19,15 @@ export default function reducer(state = initialState, action) {
       }
     case GET_COINS_SUCCESS:
       return {
-        coins: action.payload, loading: false, hasErrors: false
+        ...state, coins: action.payload, loading: false, hasErrors: false
       }
     case GET_COINS_FAILURE:
       return {
         ...state, loading: false, hasErrors: true
+      }
+    case PAGE_SELECT:
+      return {
+        ...state, currentPage: action.payload
       }
     default:
       return state

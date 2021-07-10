@@ -6,6 +6,7 @@ import CardDisplay from './components/CardDisplay'
 function App() {
   return (
     <div className="App">
+      <h1>Your Fuse Inc. React Dev Test</h1>
       <Container maxWidth='lg'>
         <CardDisplay/>
       </Container>
