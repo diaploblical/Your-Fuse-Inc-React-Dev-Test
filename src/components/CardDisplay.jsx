@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 import {Grid} from '@material-ui/core'
 import {callCryptoApi} from '../actions/actions'
 import {CryptoCard} from './CryptoCard'
+import {CryptoList} from './CryptoList'
 import {BasicPagination} from './Pagination'
 
-const CardDisplay = ({dispatch, coins, loading, hasErrors, currentPage, coinsPerPage}) => {
+const CardDisplay = ({dispatch, coins, loading, hasErrors, currentPage, coinsPerPage, listToggle}) => {
   useEffect(() => {
     dispatch(callCryptoApi())
   }, [dispatch])
@@ -19,12 +20,28 @@ const CardDisplay = ({dispatch, coins, loading, hasErrors, currentPage, coinsPer
     if (hasErrors) return <p>Unable to display cards</p>
     return currentCoins.map((coin) => <CryptoCard key={coin.id} coin={coin} />)
   }
-  return(
-    <Grid container align='center' spacing={4}>
-     {renderCards()}
-     <BasicPagination/>
-    </Grid>  
-  )
+  const renderListItems = () => {
+    if (loading) return <p>Loading list...</p>
+    if (hasErrors) return <p>Unable to display list</p>
+    return currentCoins.map((coin) => <CryptoList key={coin.id} coin={coin} />)
+  }
+
+  if (listToggle) {
+    return(
+      <Grid container align='center' spacing={4}>
+       {renderListItems()}
+       <BasicPagination/>
+      </Grid>
+    )
+  }
+  else {
+    return(
+      <Grid container align='center' spacing={4}>
+       {renderCards()}
+       <BasicPagination/>
+      </Grid>  
+    )
+  } 
 }
 
 const mapStateToProps = (state) => {
@@ -33,7 +50,8 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     hasErrors: state.hasErrors,
     currentPage: state.currentPage,
-    coinsPerPage: state.coinsPerPage
+    coinsPerPage: state.coinsPerPage,
+    listToggle: state.listToggle
   }
 }
 

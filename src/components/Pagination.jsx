@@ -1,7 +1,6 @@
 import React from 'react'
 import {makeStyles} from '@material-ui/core/'
 import {Grid} from '@material-ui/core'
-import {connect} from 'react-redux'
 import {Pagination} from '@material-ui/lab/'
 import {pageSelect} from '../actions/actions'
 import {useDispatch} from 'react-redux'
@@ -29,14 +28,6 @@ export const BasicPagination = () => {
       <div className={classes.root}>
         <Pagination className={classes.ul} siblingCount={20} count={25} color='primary' onChange={handleChange} />
       </div>
-    </Grid>  
+    </Grid>
   )
 }
-
-const mapStateToProps = (state) => {
-  return {
-    currentPage: state.currentPage
-  }
-}
-
-export default connect(mapStateToProps)(BasicPagination) 

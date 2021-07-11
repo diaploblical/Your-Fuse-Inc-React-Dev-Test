@@ -2,13 +2,15 @@ import {GET_COINS} from '../actions/actions'
 import {GET_COINS_SUCCESS} from '../actions/actions'
 import {GET_COINS_FAILURE} from '../actions/actions'
 import {PAGE_SELECT} from '../actions/actions'
+import {LIST_TOGGLE} from '../actions/actions'
 
 export const initialState = {
   coins: [],
   loading: false,
   hasErrors: false,
   currentPage: 1,
-  coinsPerPage: 4
+  coinsPerPage: 4,
+  listToggle: false
 }
 
 export default function reducer(state = initialState, action) {
@@ -28,6 +30,10 @@ export default function reducer(state = initialState, action) {
     case PAGE_SELECT:
       return {
         ...state, currentPage: action.payload
+      }
+    case LIST_TOGGLE:
+      return {
+        ...state, listToggle: !state.listToggle
       }
     default:
       return state
